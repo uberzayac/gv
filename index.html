@@ -1,1 +1,318 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Калькуляторы </title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f7fb;
+            min-height: 100vh;
+        }
+        
+        .wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            color: #1a2c3e;
+            margin-bottom: 8px;
+        }
+        
+        .header p {
+            color: #5a6874;
+            font-size: 1rem;
+        }
+        
+        /* Tabs */
+        .tabs {
+            display: flex;
+            background: white;
+            border-radius: 16px;
+            padding: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 14px 20px;
+            background: transparent;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #5a6874;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .tab-btn:hover {
+            background: #f0f2f5;
+            color: #1a2c3e;
+        }
+        
+        .tab-btn.active {
+            background: #2c3e50;
+            color: white;
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.2);
+        }
+        
+        /* Cards */
+        .cards-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: stretch;
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+        }
+        
+        .card-icon {
+            width: 70px;
+          padding: 30px 50px 30px 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            background: #f8fafc;
+            border-right: 1px solid #eef2f6;
+        }
+        
+        .card-content {
+            flex: 1;
+            padding: 24px;
+        }
+        
+        .card h3 {
+            font-size: 1.25rem;
+            color: #1a2c3e;
+            margin-bottom: 10px;
+        }
+        
+        .card p {
+            color: #5a6874;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        .card-meta {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .badge {
+            background: #eef2ff;
+            color: #2c3e50;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .card-link {
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 12px;
+        }
+        
+        .card-link span {
+            transition: transform 0.2s ease;
+        }
+        
+        .card:hover .card-link span {
+            transform: translateX(4px);
+        }
+        
+        .hidden-card {
+            display: none;
+        }
+        
+        @media (max-width: 600px) {
+            .wrapper {
+                padding: 20px 15px;
+            }
+            
+            .tab-btn {
+                padding: 10px 12px;
+                font-size: 0.85rem;
+                min-width: auto;
+            }
+            
+            .card {
+                flex-direction: column;
+            }
+            
+            .card-icon {
+                width: 100%;
+                padding: 20px;
+                border-right: none;
+                border-bottom: 1px solid #eef2f6;
+            }
+            
+            .card-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <div class="logo"></div>
+            <h1>Калькуляторы </h1>
+ 
+        </div>
+        
+        <div class="tabs">
+            <button class="tab-btn active" data-filter="all">
+                📋 Все
+            </button>
+            <button class="tab-btn" data-filter="cups">
+                Сублимация
+            </button>
+            <button class="tab-btn" data-filter="pens">
+                УФ
+            </button>
+            <button class="tab-btn" data-filter="flyers">
+                Полиграфия
+            </button>
+        </div>
+        
+        <div class="cards-container" id="cardsContainer">
+            <!-- Кружки -->
+            <div class="card" data-type="cups">
+                <div class="card-icon">🍵</div>
+                <div class="card-content">
+                   <a href="https://gv.gt.tc/cups_subl/cups.html?i=1" class="card-link"> <h3>Кружки с сублимационной печатью</h3></a>
+                    <p>Сублимационная печать на кружках. Полноцветная печать, высокое качество изображения.</p>
+                    <div class="card-meta">
+                        <span class="badge">Сублимация</span>
+                        <span class="badge">Ресчёт веса</span>
+                        <span class="badge">Возможно будет расчёт кооробок</span>
+                    </div>
+                    <a href="https://gv.gt.tc/cups_subl/cups.html?i=1" class="card-link">
+                        Рассчитать стоимость <span>→</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Ручки -->
+            <div class="card" data-type="pens">
+                <div class="card-icon">🖋️</div>
+                <div class="card-content">
+                  <a href="https://gv.gt.tc/ecopen/index.html" class="card-link">
+                    <h3>Ручки с УФ печатью</h3>
+                  </a>
+                    <p>УФ-печать на ЭКО ручках. Различные виды ручек, выбор цвета корпуса, печать на колпачке и клипе.</p>
+                    <div class="card-meta">
+                        <span class="badge">УФ печать</span>
+                        <span class="badge">Печать на клипе</span>
+                        <span class="badge">Печать на колпачке</span>
+                    </div>
+                    <a href="https://gv.gt.tc/ecopen/index.html" class="card-link">
+                        Рассчитать стоимость <span>→</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Листовки -->
+            <div class="card" data-type="flyers">
+                <div class="card-icon">📄</div>
+                <div class="card-content">
+                  <a href="https://publicfork.vercel.app/" class="card-link">
+                    <h3>Листовая продукция</h3>
+                  </a>
+                    <p>Печать, постобработка листовой продукции. Выбор материала, ламинация, биговка, фальцовка.</p>
+                    <div class="card-meta">
+                        <span class="badge">Полиграфия</span>
+                        <span class="badge">А3, А4, А5, А6</span>
+                        <span class="badge">Свой формат</span>
+                    </div>
+                    <a href="https://publicfork.vercel.app/" class="card-link">
+                        Рассчитать стоимость <span>→</span>
+                    </a>
+                </div>
+            </div>
+           <p>Заметки себе: 1.Скорее всего вкладки будут по видам технологий.  2.Сделать кнопки "Назад" на каждом калькуляторе 3. Добавить лого компании
+</p>
+        </div>
+    </div>
+    
+    <script>
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const cards = document.querySelectorAll('.card');
+        
+        function filterCards(type) {
+            cards.forEach(card => {
+                if (type === 'all' || card.dataset.type === type) {
+                    card.classList.remove('hidden-card');
+                } else {
+                    card.classList.add('hidden-card');
+                }
+            });
+        }
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                filterCards(btn.dataset.filter);
+            });
+        });
+        
+        // Добавляем класс для скрытия
+        const style = document.createElement('style');
+        style.textContent = '.hidden-card { display: none !important; }';
+        document.head.appendChild(style);
+    </script>
 
+</body>
+</html>
